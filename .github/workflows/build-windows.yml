@@ -25,5 +25,5 @@ jobs:
       - name: Upload compiled exe
         uses: actions/upload-artifact@v4
         with:
-          name: whisker-exe
+          name: whisker.exe
           path: '**/bin/Release/**'
