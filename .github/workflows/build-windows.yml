@@ -1,0 +1,26 @@
+name: Build Whisker (.NET Framework 4.7.2)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Restore NuGet packages
+        run: nuget restore Whisker.sln
+
+      - name: Build solution (Release)
+        run: msbuild Whisker.sln /t:Rebuild /p:Configuration=Release /m
+
+      - name: Upload compiled exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: whisker-exe
+          path: '**/bin/Release/**'
